@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 
 import { Label } from 'reactstrap';
@@ -52,7 +52,7 @@ const EditVehicle = () => {
     }
  
     return (
-        <div className="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40"> 
+        <div className="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"> 
                 <div className="az-content-body pd-lg-l-40 d-flex flex-column">
                      
                     <h2 className="az-content-title">Vehicle </h2>
@@ -70,6 +70,8 @@ const EditVehicle = () => {
                                     }} 
                                     validationSchema={VehicleSchema}
                                     onSubmit={values => {
+                                        setIsLoading(true); 
+
                                         let data: UpdateVehicleRecord =   {
                                             Id: location.state.id,
                                             make: values.make,
@@ -83,13 +85,14 @@ const EditVehicle = () => {
                                             navigate('/vehicles');
                                         }).catch((error) => {
                                             console.log(error);
+                                            setIsLoading(false); 
                                         }); 
                                     }}
                                 >
                                     {({ errors, touched }) => (
                                            <Form>
                                            <div className="row row-sm">
-                                               <div className="col-lg-4">
+                                               <div className="col-lg-4 form-group">
                                                    <Label htmlFor="make">Make  </Label>
                                                    <Field name="make" className="form-control"/>
                                                     
@@ -97,7 +100,8 @@ const EditVehicle = () => {
                                                        <div className="error">{errors.make}</div>
                                                    ) : null}
                                                </div>
-               
+
+                              
                                                <div className="col-lg-4">
                                                    <Label htmlFor="model">Model </Label>
                                                    <Field name="model" className="form-control" />
@@ -134,12 +138,14 @@ const EditVehicle = () => {
                                            <br />
                                            <div className="row row-sm wd-xl-80p">
                                                <div className="col-lg-4">
-                                                   <button type="submit" className="btn btn-primary btn-rounded btn-block">
-                                                       Save</button>
-                                               </div>
-                                               <div className="col-lg-4">
-                                                   <a className="btn btn-dark btn-block" onClick={Cancel}>Cancel</a>
-                                               </div>
+                                                  {
+                                                    isLoading ? "Please wait.." : 
+                                                        <>
+                                                            <button type="submit" className="btn btn-primary btn-rounded btn-block px-5 ml-2"> Save</button>&nbsp;&nbsp;
+                                                            <a className="btn btn-dark btn-block px-5 ml-2" onClick={Cancel}>Cancel</a>
+                                                        </> 
+                                                  }  
+                                               </div>  
                                            </div>
                                        </Form>
                                     )}

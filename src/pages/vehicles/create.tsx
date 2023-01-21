@@ -1,3 +1,4 @@
+import  { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 
 import { Label } from 'reactstrap';
@@ -10,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AddVehicle = () => {
     let navigate = useNavigate();
+    const [isSaving, setLoader] = useState(false);
 
     function Cancel() {
         navigate('/vehicles');
@@ -32,6 +34,7 @@ const AddVehicle = () => {
                     }}
                     validationSchema={VehicleSchema}
                     onSubmit={values => { 
+                        setLoader(true);  
                         let data: VehicleRecord =   {
                             Id: '',
                             make: values.make,
@@ -46,13 +49,14 @@ const AddVehicle = () => {
                             navigate('/vehicles');
                         }).catch((error) => {
                             console.log(error);
+                            setLoader(false);  
                         });
                     }}
                 >
                     {({ errors, touched }) => (
                         <Form>
                             <div className="row row-sm">
-                                <div className="col-lg-4">
+                                <div className="col-lg-6">
                                     <Label htmlFor="make">Make </Label>
                                     <Field name="make" className="form-control" />
                                     {errors.make && touched.make ? (
@@ -60,7 +64,7 @@ const AddVehicle = () => {
                                     ) : null}
                                 </div>
 
-                                <div className="col-lg-4">
+                                <div className="col-lg-6">
                                     <Label htmlFor="model">Model </Label>
                                     <Field name="model" className="form-control" />
                                     {errors.model && touched.model ? (
@@ -68,7 +72,7 @@ const AddVehicle = () => {
                                     ) : null}
                                 </div>
 
-                                <div className="col-lg-4">
+                                <div className="col-lg-6">
                                     <Label htmlFor="year">Year </Label>
                                     <Field name="year" className="form-control" />
                                     {errors.year && touched.year ? (
@@ -76,7 +80,7 @@ const AddVehicle = () => {
                                     ) : null}
                                 </div>
 
-                                <div className="col-lg-4">
+                                <div className="col-lg-6">
                                     <Label htmlFor="licencePlateNumber">Licence Plate Number </Label>
                                     <Field name="licencePlateNumber" className="form-control" />
                                     {errors.licencePlateNumber && touched.licencePlateNumber ? (
@@ -84,7 +88,7 @@ const AddVehicle = () => {
                                     ) : null}
                                 </div>
 
-                                <div className="col-lg-4">
+                                <div className="col-lg-6">
                                     <Label htmlFor="mileage">Mileage </Label>
                                     <Field name="mileage" className="form-control" />
                                     {errors.mileage && touched.mileage ? (
@@ -94,13 +98,15 @@ const AddVehicle = () => {
 
                             </div>
                             <br />
-                            <div className="row row-sm wd-xl-80p">
+                            <div className="row row-sm wd-xl-70p"> 
                                 <div className="col-lg-4">
-                                    <button type="submit" className="btn btn-primary btn-rounded btn-block">
-                                        Save</button>
-                                </div>
-                                <div className="col-lg-4">
-                                    <a className="btn btn-dark btn-block" onClick={Cancel}>Cancel</a>
+                                    {
+                                        isSaving ? "Please wait.." : 
+                                            <>
+                                                <button type="submit" className="btn btn-primary btn-rounded btn-block px-5 ml-2"> Save</button>&nbsp;&nbsp;
+                                                <a className="btn btn-dark btn-block px-5 ml-2" onClick={Cancel}>Cancel</a>
+                                            </> 
+                                    } 
                                 </div>
                             </div>
                         </Form>

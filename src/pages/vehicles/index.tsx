@@ -42,16 +42,15 @@ const GridListing = (vehicles: VehicleRecord[]) => {
         { key: 'make', name: 'Make' },
         { key: 'model', name: 'Model' },
         { key: 'year', name: 'Year' },
-        { key: 'licencePlateNumber', name: 'Licence Plate Number' },
-        { key: 'mileage', name: 'Mileage' },
+      
         {
             key: 'id',
             name: 'Actions',
             formatter(props: any) {
                 var url = "/vehicles/edit/" + props.row.id;
                 let actionButtons = <>
-                    <button className="btn btn-indigo btn-icon" onClick={() => DeleteVehicle(props.row.id, props.row.make)}>Delete </button>
-                    <Link to={url} state={{id:props.row.id}}>Edit</Link>
+                    <button className="btn btn-danger" onClick={() => DeleteVehicle(props.row.id, props.row.make)}>Delete </button>&nbsp;
+                    <Link className="btn btn-secondary px-3 ml-1"  to={url} state={{id:props.row.id}}>Edit</Link>
                 </>;
 
                 return actionButtons;
@@ -59,7 +58,7 @@ const GridListing = (vehicles: VehicleRecord[]) => {
         },
     ];
 
-    return <DataGrid columns={columnNames} rows={vehicles} renderers={{ noRowsFallback: "No Records" }} className="small-grid" />
+    return <DataGrid columns={columnNames} rows={vehicles} renderers={{ noRowsFallback: "No Records" }} className="fill-grid" style={{ resize: 'both' }}   />
 }
 
 function VehicleListing() {
@@ -104,18 +103,16 @@ function VehicleListing() {
         <>
             <div className='page__main'>
                 <h1>Vehicles</h1>
-            </div>
 
-            <div>
-                <div className="row">
-                    <div className="col-5">
-                        <button className="btn btn-primary" onClick={AddVehicle}> Add Vehicle</button>
-                    </div>
+                <div className="col-5">
+                    <button className="btn btn-primary" onClick={AddVehicle}> Add Vehicle</button>
                 </div>
-                <br /><br />
-                {
-                    dataLoaded ? GridListing(vehicles) : "loading..please wait..."
-                }
+                <div> 
+                    <br /><br />
+                    {
+                        dataLoaded ? GridListing(vehicles) : "loading..please wait..."
+                    }
+                </div> 
             </div>
         </>
     );

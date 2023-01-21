@@ -4,21 +4,21 @@ const VehicleSchema = Yup.object().shape({
     make: Yup.string()
         .min(2, 'Too Short!')
         .max(50, 'Too Long!')
-        .required('Required'),
+        .required('Make is Required'),
     model: Yup.string()
         .min(2, 'Too Short!')
         .max(50, 'Too Long!')
-        .required('Required'),
+        .required('Model is Required'),
     year: Yup.number()
         .moreThan(0)
-        .required('Required'),
+        .required('Year is Required'),
     licencePlateNumber: Yup.string()
         .min(2, 'Too Short!')
         .max(50, 'Too Long!')
-        .required('Required'),
+        .required('Licence Plate Number Required'),
     mileage: Yup.number()
         .moreThan(0)
-        .required('Required'),
+        .required('Mileage Required'),
 });
 
 export default VehicleSchema;
