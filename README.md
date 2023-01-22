@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+
 
 https://loyiso-motors.azurewebsites.net/
 
