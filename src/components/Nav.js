@@ -34,7 +34,7 @@ const Nav = ({ children }) => {
                 </div> 
                 <div className="container ht-100p pd-t-0-f">
                      <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Developer: &nbsp;
-                        <a href="https://www.uloyiso.com" target="_blank" style={{ textDecoration: 'none' }}>Loyiso Nelani</a> </span>
+                        <a href="http://www.uloyiso.com" target="_blank" style={{ textDecoration: 'none' }}>Loyiso Nelani</a> </span>
                 </div>
             </header>
 
